@@ -4,10 +4,24 @@
   "description": "API project for freeCodeCamp",
   "main": "index.js",
   "scripts": {
+    "build": "webpack build",
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
   "dependencies": {
+    "css-loader": "^6.4.0",
+    "css-minimizer-webpack-plugin": "^3.1.1",
+    "file-loader": "^1.1.6",
+    "gifencoder": "^2.0.1",
+    "html-webpack-plugin": "^5.3.2",
+    "mini-css-extract-plugin": "^2.4.2",
+    "node-sass": "^6.0.1",
+    "png-js": "^1.0.0",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^3.3.0",
+    "webpack": "^5.58.2",
+    "webpack-cli": "^4.9.0",
+    "webpack-dev-server": "^4.4.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -15,6 +29,8 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "prettier": "^2.4.1",
+    "prettier-airbnb-config": "^1.0.0"
   }
 }
