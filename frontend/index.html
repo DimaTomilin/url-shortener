@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>URL Shortener</title>
+    <link rel="icon" type="image/png" href="../public/favicon.ico" />
+    <link href="./style.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <div id="root">
+      <header id="header">
+        <div>
+          <label for="username-area"></label>
+          <input type="text" id="username-area" placeholder="Username" />
+        </div>
+        <div class="buttons">
+          <button id="sing-in-button">Sing in</button>
+          <button id="check-button">Check user</button>
+        </div>
+      </header>
+      <main>
+        <div id="alert1" class="alert success" style="display: none">
+          <span class="closebtn">&times;</span>
+          <div></div>
+        </div>
+        <h1>URL Shortener</h1>
+        <section>
+          <fieldset id="form">
+            <h3>Paste the URL to be shortened</h3>
+            <label for="url_input">URL:</label>
+            <input
+              id="url_input"
+              type="text"
+              name="url"
+              placeholder="https://www.freecodecamp.org/"
+            />
+            <button id="post-button">Short URL</button>
+            <p>
+              Use our URL Shortener to create a shortened link making it easy to
+              remember
+            </p>
+          </fieldset>
+          <fieldset id="shorten">
+            <h3>Shorten URL</h3>
+            <label for="short-url">URL:</label>
+            <input id="short-url" type="text" name="url" />
+            <button id="copy-button">Copy URL</button>
+            <p>If you want to see statistic for this short URL</p>
+            <button id="statistic">Click here</button>
+          </fieldset>
+        </section>
+      </main>
+      <footer>
+        <p>By <a href="https://www.freecodecamp.org/">freeCodeCamp</a></p>
+      </footer>
+    </div>
+  </body>
+</html>
