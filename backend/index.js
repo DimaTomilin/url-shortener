@@ -18,7 +18,7 @@ server.get('/', function (req, res) {
 });
 
 server.use('/user', userRouter);
-server.use('/url', pokemonRouter);
+server.use('/url', urlRouter);
 
 server.use(serverError);
 

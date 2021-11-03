@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack build",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon backend/index.js"
   },
   "dependencies": {
     "css-loader": "^6.4.0",
