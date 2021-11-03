@@ -2,26 +2,26 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const isUser = require('../middleware/userHandler');
-const { readFiles } = require('../directive');
+const readFiles = require('../directive');
 
 // creating a user
-router.put('/create/:username', (request, response) => {
-  const userName = request.params.username.toLocaleLowerCase();
-  const dir = `./users/${userName}`;
+router.put('/create/:username', (req, res) => {
+  const userName = req.params.username.toLocaleLowerCase();
+  const dir = `./backend/users/${userName}`;
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
   }
-  response.send('Hey you signed in as ' + userName);
-  response.end();
+  res.send('Hey you signed in as ' + userName);
+  res.end();
 });
 
-// the most useless function ever, has no purpose but it was a requirement
-router.post('/info', isUser, (request, response) => {
-  response.send('Hey ' + request.headers.username);
-  response.end();
-  return;
+//get message which user I use at the moment
+router.get('/info', isUser, (req, res) => {
+  res.send('Hey ' + req.headers.username);
+  res.end();
 });
 
+//get list of all shorten urls
 router.get('/all', isUser, (req, res) => {
   const username = req.headers.username;
   const allUserURL = readFiles(`./backend/users/${username}`);

@@ -1,16 +1,12 @@
 const fs = require('fs');
 const path = require('path');
-const { readFiles } = require('../directive');
 
+//Check if this user already have shorten url to this url
 function isURLExist(req, res, next) {
   const URL = req.body.url;
-
   const dir = req.headers.username;
-
   const homedir = './backend/users';
-
   const allShortenURLs = fs.readdirSync(path.join(homedir, dir));
-
   allShortenURLs.forEach((url) => {
     const urlInformation = JSON.parse(
       fs.readFileSync(path.join(homedir, dir, url))

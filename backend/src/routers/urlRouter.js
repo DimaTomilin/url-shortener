@@ -1,32 +1,30 @@
 const fs = require('fs');
 const express = require('express');
 const router = express.Router();
-const path = require('path');
 const isUser = require('../middleware/userHandler');
 const { isURLExist } = require('../middleware/errorHandler');
-const { randomURL, createURLFile, readFiles } = require('../directive');
+const { randomURL, createURLFile } = require('../directive');
 
 // user middleware error handler
-//router.use(isUser);
+router.use(isUser);
 
-router.put('/create', isURLExist, (request, response) => {
-  const username = request.headers.username;
-  const oldURL = request.body.url;
-  //to check body in front
+router.put('/create', isURLExist, (req, res) => {
+  const username = req.headers.username;
+  const oldURL = req.body.url;
   const newURL = randomURL();
   createURLFile(oldURL, newURL, username);
-  response.json({ newURL });
-  response.end();
+  res.json({ newURL });
+  res.end();
 });
 
-router.get('/statistic', (request, response) => {
-  const username = request.headers.username;
-  const url = request.query.url;
+router.get('/statistic', isUser, (req, res) => {
+  const username = req.headers.username;
+  const url = req.query.url;
   const urlInformation = JSON.parse(
     fs.readFileSync(`./backend/users/${username}/${url}.json`)
   );
-  response.json(urlInformation);
-  response.end();
+  res.json(urlInformation);
+  res.end();
 });
 
 module.exports = router;

@@ -19,9 +19,8 @@ async function userSingIn() {
 }
 
 async function checkUser() {
-  const response = await axios.post(
+  const response = await axios.get(
     `https://salty-thicket-98454.herokuapp.com/user/info`,
-    {},
     {
       headers: {
         username: localStorage.getItem('username'),

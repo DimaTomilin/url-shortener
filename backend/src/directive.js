@@ -1,8 +1,7 @@
 const fs = require('fs');
-const { format } = require('path');
 const shortid = require('shortid');
 
-// creating the json file with the pokemon format
+// creating the json file with shorten url in user directory
 function createURLFile(longURL, shortURL, userDir) {
   fs.writeFileSync(
     `./backend/users/${userDir}/${shortURL}.json`,
@@ -10,8 +9,8 @@ function createURLFile(longURL, shortURL, userDir) {
   );
 }
 
+//Updating counter of clicks of each shorten url
 function updateCounter(shortURL, userDir) {
-  console.log('yes');
   const path = `./backend/users/${userDir}/${shortURL}.json`;
   const file = JSON.parse(fs.readFileSync(path));
   file.Counter += 1;
@@ -26,6 +25,7 @@ function updateCounter(shortURL, userDir) {
   );
 }
 
+//Creating object with url format
 function creatURLObject(shortURL, longURL) {
   const newObject = {
     LongURL: longURL,
@@ -36,7 +36,7 @@ function creatURLObject(shortURL, longURL) {
   return newObject;
 }
 
-// reading all the files in the user dir and returning an array with the LongURL of the shortens
+// reading all the files in the user dir and returning an object of all shortens of user
 function readFiles(dirname) {
   const dataArr = {};
   const filesArr = fs.readdirSync(dirname);
@@ -47,6 +47,7 @@ function readFiles(dirname) {
   return dataArr;
 }
 
+//Check if this shorten id been used before
 function urlCheck(url) {
   const allUsers = fs.readdirSync(`./backend/users`);
   for (const user of allUsers) {
@@ -57,6 +58,7 @@ function urlCheck(url) {
   return false;
 }
 
+//Generate random short url
 function randomURL() {
   const randomURL = shortid.generate();
   if (urlCheck(randomURL)) {
@@ -65,6 +67,7 @@ function randomURL() {
   return randomURL;
 }
 
+//Making create time by specific format
 function creatingTime() {
   const today = new Date();
   const date =
@@ -75,13 +78,13 @@ function creatingTime() {
   return dateTime;
 }
 
+//Search file by short URL and return long URL of this file
 function findFile(url) {
   const allUsers = fs.readdirSync('./backend/users');
+  const path = `./backend/users/${user}/${url}.json`;
   for (const user of allUsers) {
-    if (fs.existsSync(`./backend/users/${user}/${url}.json`)) {
-      const file = JSON.parse(
-        fs.readFileSync(`./backend/users/${user}/${url}.json`)
-      );
+    if (fs.existsSync(path)) {
+      const file = JSON.parse(fs.readFileSync(path));
       updateCounter(url, user);
       return file.LongURL;
     }
