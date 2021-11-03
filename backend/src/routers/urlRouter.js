@@ -1,12 +1,13 @@
 const fs = require('fs');
 const express = require('express');
 const router = express.Router();
+const path = require('path');
 const isUser = require('../middleware/userHandler');
 const { isURLExist } = require('../middleware/errorHandler');
 const { randomURL, createURLFile, readFiles } = require('../directive');
 
 // user middleware error handler
-router.use(isUser);
+//router.use(isUser);
 
 router.put('/create', isURLExist, (request, response) => {
   const username = request.headers.username;
@@ -18,13 +19,13 @@ router.put('/create', isURLExist, (request, response) => {
   response.end();
 });
 
-router.get('/statictic/:url', (request, response) => {
+router.get('/statistic', (request, response) => {
   const username = request.headers.username;
-  const url = request.params.url;
+  const url = request.query.url;
   const urlInformation = JSON.parse(
-    fs.readFileSync(`./backend/users/${username}/${url}`)
+    fs.readFileSync(`./backend/users/${username}/${url}.json`)
   );
-  response.json({ urlInformation });
+  response.json(urlInformation);
   response.end();
 });
 

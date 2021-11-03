@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 const usernameInput = document.getElementById('username-area');
 
 document.getElementById('sing-in-button').addEventListener('click', userSingIn);
@@ -54,3 +52,19 @@ function showingAlert(object, status, message) {
 }
 
 localStorage.setItem('username', '');
+document
+  .getElementById('copy-button')
+  .addEventListener('click', exampleRequest);
+
+async function exampleRequest() {
+  const res = await axios.put(
+    'http://localhost:3000/url/create',
+    { url: 'https://www.youtube.com/watch?v=eSaF8NXeNsA' },
+    {
+      headers: {
+        username: 'dima',
+      },
+    }
+  );
+  return res;
+}

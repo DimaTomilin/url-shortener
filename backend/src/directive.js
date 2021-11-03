@@ -1,11 +1,28 @@
 const fs = require('fs');
 const { format } = require('path');
+const shortid = require('shortid');
 
 // creating the json file with the pokemon format
 function createURLFile(longURL, shortURL, userDir) {
   fs.writeFileSync(
-    `${userDir}/${shortURL}.json`,
+    `./backend/users/${userDir}/${shortURL}.json`,
     JSON.stringify(creatURLObject(shortURL, longURL))
+  );
+}
+
+function updateCounter(shortURL, userDir) {
+  console.log('yes');
+  const path = `./backend/users/${userDir}/${shortURL}.json`;
+  const file = JSON.parse(fs.readFileSync(path));
+  file.Counter += 1;
+  fs.writeFileSync(
+    path,
+    JSON.stringify({
+      LongURL: file.LongURL,
+      ShortURL: shortURL,
+      Counter: file.Counter,
+      CreateTime: file.CreateTime,
+    })
   );
 }
 
@@ -21,19 +38,19 @@ function creatURLObject(shortURL, longURL) {
 
 // reading all the files in the user dir and returning an array with the LongURL of the shortens
 function readFiles(dirname) {
-  const dataArr = [];
-  let filesArr = fs.readdirSync(dirname);
+  const dataArr = {};
+  const filesArr = fs.readdirSync(dirname);
   for (const file of filesArr) {
-    let data = JSON.parse(fs.readFileSync(`${dirname}/${file}`)).LongURL;
-    dataArr.push(data);
+    let data = JSON.parse(fs.readFileSync(`${dirname}/${file}`));
+    dataArr[data.ShortURL] = data.LongURL;
   }
   return dataArr;
 }
 
-function urlCheck(URL) {
+function urlCheck(url) {
   const allUsers = fs.readdirSync(`./backend/users`);
   for (const user of allUsers) {
-    if (fs.existsSync(`./users/${user}/${URL}`)) {
+    if (fs.existsSync(`./backend/users/${user}/${url}.json`)) {
       return true;
     }
   }
@@ -41,15 +58,7 @@ function urlCheck(URL) {
 }
 
 function randomURL() {
-  const arr = [];
-  for (let i = 0; i < 7; i++) {
-    let number = Math.floor(Math.random() * 126);
-    if (number < 33) {
-      number += 33;
-    }
-    arr.push(number);
-  }
-  const randomURL = String.fromCharCode(...arr);
+  const randomURL = shortid.generate();
   if (urlCheck(randomURL)) {
     return randomURL();
   }
@@ -66,8 +75,22 @@ function creatingTime() {
   return dateTime;
 }
 
+function findFile(url) {
+  const allUsers = fs.readdirSync('./backend/users');
+  for (const user of allUsers) {
+    if (fs.existsSync(`./backend/users/${user}/${url}.json`)) {
+      const file = JSON.parse(
+        fs.readFileSync(`./backend/users/${user}/${url}.json`)
+      );
+      updateCounter(url, user);
+      return file.LongURL;
+    }
+  }
+}
+
 module.exports = {
   createURLFile,
   randomURL,
   readFiles,
+  findFile,
 };

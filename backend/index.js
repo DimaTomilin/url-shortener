@@ -5,11 +5,16 @@ const port = process.env.PORT || 3000;
 
 const path = require('path');
 const cors = require('cors');
+const shortid = require('shortid');
 
 const { serverError } = require('./src/middleware/errorHandler');
 const urlRouter = require('./src/routers/urlRouter');
 const userRouter = require('./src/routers/userRouter');
+const { findFile } = require('./src/directive');
+const { response } = require('express');
+const { request } = require('http');
 
+server.use(express.json());
 server.use(cors());
 server.use('/', express.static(path.resolve('./dist'))); // serve main path as static dir
 server.get('/', function (req, res) {
@@ -19,6 +24,14 @@ server.get('/', function (req, res) {
 
 server.use('/user', userRouter);
 server.use('/url', urlRouter);
+
+server.get('/:url', (req, res) => {
+  const url = req.params.url;
+
+  const longURL = findFile(url);
+  res.json(longURL);
+  res.end();
+});
 
 server.use(serverError);
 

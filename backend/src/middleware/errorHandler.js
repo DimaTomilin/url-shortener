@@ -4,7 +4,9 @@ const { readFiles } = require('../directive');
 
 function isURLExist(req, res, next) {
   const URL = req.body.url;
+
   const dir = req.headers.username;
+
   const homedir = './backend/users';
 
   const allShortenURLs = fs.readdirSync(path.join(homedir, dir));
