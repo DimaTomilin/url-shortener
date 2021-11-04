@@ -3,7 +3,6 @@
 <html>
   <head>
     <title>URL Shortener</title>
-    <link rel="icon" type="image/png" href="../public/favicon.ico" />
     <link href="./style.css" rel="stylesheet" type="text/css" />
   </head>
 
@@ -25,7 +24,7 @@
           <div></div>
         </div>
         <h1>URL Shortener</h1>
-        <section>
+        <section id="url-shortener">
           <fieldset id="form">
             <h3>Paste the URL to be shortened</h3>
             <label for="url_input">URL:</label>
@@ -45,10 +44,12 @@
             <h3>Shorten URL</h3>
             <label for="short-url">URL:</label>
             <input id="short-url" type="text" name="url" />
-            <button id="copy-button">Copy URL</button>
-            <p>If you want to see statistic for this short URL</p>
-            <button id="statistic">Click here</button>
+            <button id="execCopy">Copy URL</button>
           </fieldset>
+          <button id="see-all">See all my shortens</button>
+        </section>
+        <section id="url-statistic">
+          <fieldset id="statistic"></fieldset>
         </section>
       </main>
       <footer>

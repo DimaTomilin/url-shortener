@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const isUser = require('../middleware/userHandler');
-const readFiles = require('../directive');
+const { readFiles } = require('../directive');
 
 // creating a user
 router.put('/create/:username', (req, res) => {
