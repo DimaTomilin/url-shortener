@@ -111,6 +111,8 @@ async function allMyShortens() {
     },
   });
   const allURLs = response.data;
+  document.getElementById('url-shortener').style.display = 'none';
+  document.getElementById('url-statistic').style.display = 'block';
   generateList(allURLs);
 }
 
@@ -121,51 +123,46 @@ function generateList(object) {
       [`http://localhost:3000/${url}`],
       ['short-url'],
       {},
-      {}
+      { click: statisticSection }
     );
-    const longPart = createElement(
-      'div',
-      [`shorten url of '${object[url]}'`],
-      ['long-url'],
-      {},
-      {}
-    );
+
+    const longPart = createElement('a', [], ['long-url'], {}, {});
+    longPart.innerHTML = `${object[url]}`;
+    longPart.href = object[url];
+    longPart.target = '_blank';
     const shorten = createElement('div', [shortPart, longPart], ['users-url']);
 
     document.getElementById('statistic').append(shorten);
   }
 }
 
-/*
-document
-  .getElementById('statistic-button')
-  .addEventListener('click', statisticSection);
-
 async function statisticSection(e) {
-  const shortURL = e.target.inner;
-  const response = await axios.get(`http://localhost:3000/url/statistic?`, {
-    headers: {
-      username: localStorage.getItem('username'),
-    },
-  });
+  const shortURL = e.target.innerHTML;
+  const index = shortURL.lastIndexOf('/') + 1;
+  const response = await axios.get(
+    `http://localhost:3000/url/statistic?url=${shortURL.slice(index)}`,
+    {
+      headers: {
+        username: localStorage.getItem('username'),
+      },
+    }
+  );
+  document.getElementById('statistic').innerHTML = '';
+  urlStatistic(response.data);
 }
 
 function urlStatistic(obj) {
-  document.getElementById('all-statistic').style.display = 'block';
   const header = createElement('h3');
   header.innerHTML = 'Statistic of URL Shorten';
   const shortURL = createElement('div');
-  shortURL.innerHTML = `Short URL: 'localhost:3000/${obj.ShortURL}'`;
+  shortURL.innerHTML = `<p>Short URL: <a href='http://localhost:3000/${obj.ShortURL}' target='_blank'> http://localhost:3000/${obj.ShortURL} <a><p>`;
   const longURL = createElement('div');
-  longURL.innerHTML = `Long URL: 'localhost:3000/${obj.LongURL}'`;
+  longURL.innerHTML = `<p>Long URL: <a href='http://localhost:3000/${obj.LongURL}' target='_blank'> http://localhost:3000/${obj.LongURL} <a><p>`;
   const counter = createElement('div');
   counter.innerHTML = `Counter: ${obj.Counter}`;
   const creatingtime = createElement('div');
-  creatingtime.innerHTML = `Was created: ${obj.CreatingTime}`;
+  creatingtime.innerHTML = `Was created: ${obj.CreateTime}`;
   document
     .getElementById('statistic')
     .append(header, shortURL, longURL, counter, creatingtime);
 }
-
-
-*/

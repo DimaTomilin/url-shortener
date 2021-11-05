@@ -13,7 +13,7 @@ body {
 }
 
 main {
-  height: 650px;
+  height: max-content;
 }
 
 h1 {
@@ -94,4 +94,11 @@ footer p {
 
 .closebtn:hover {
   color: black;
+}
+
+.users-url {
+  border: 3px black solid;
+  border-radius: 15px;
+  margin: 20px;
+  padding: 15px;
 }
