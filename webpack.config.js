@@ -5,7 +5,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './frontend/index.js',
+  entry: './frontend/js/index.js',
   mode: 'development',
   output: {
     filename: 'index.js',
@@ -23,7 +23,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: '.frontend/index.html',
+      template: './frontend/index.html',
       filename: './index.html',
     }),
     new MiniCssExtractPlugin({
