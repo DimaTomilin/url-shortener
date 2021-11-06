@@ -21,6 +21,31 @@ h1 {
   text-align: center;
   font-size: 50px;
 }
+#sing-in-button,
+#check-button {
+  font-size: 14px;
+}
+
+.control-buttons {
+  background-color: honeydew;
+  border-radius: 3px;
+}
+
+#see-all,
+#to-main {
+  font-size: 18px;
+  width: 30%;
+  margin: 10px 35% 50px;
+}
+
+#username-area {
+  border-radius: 3px;
+}
+
+#url-input,
+#short-url {
+  width: 200px;
+}
 
 #header {
   height: 80px;
@@ -40,12 +65,17 @@ h1 {
   font-weight: 500;
   text-align: center;
   width: 50%;
-  margin-left: 25%;
+  margin: auto;
   margin-top: 30px;
+  margin-bottom: 30px;
   border-width: 4px;
   border-style: groove;
   border-image: initial;
   border-radius: 10px;
+}
+
+#statistic {
+  margin-bottom: 100px;
 }
 
 .buttons {
@@ -54,21 +84,22 @@ h1 {
 }
 
 footer {
-  background-color: #3b4371;
-}
-
-footer p {
-  margin: 0px;
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  height: 60px;
+  padding: 5px;
+  background-color: rgb(42, 46, 71);
 }
 
 .alert {
-  width: 60%;
+  width: 50%;
   padding: 20px;
   background-color: brown;
   color: white;
   opacity: 1;
   transition: opacity 0.6s;
-  margin: 25px 20% 0px;
+  margin: 25px 25% 20px;
 }
 
 .alert.success {

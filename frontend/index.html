@@ -14,8 +14,8 @@
           <input type="text" id="username-area" placeholder="Username" />
         </div>
         <div class="buttons">
-          <button id="sing-in-button">Sing in</button>
-          <button id="check-button">Check user</button>
+          <button id="sing-in-button" class="control-buttons">Sing in</button>
+          <button id="check-button" class="control-buttons">Check user</button>
         </div>
       </header>
       <main>
@@ -27,9 +27,9 @@
         <section id="url-shortener">
           <fieldset id="form">
             <h3>Paste the URL to be shortened</h3>
-            <label for="url_input">URL:</label>
+            <label for="url-input">URL:</label>
             <input
-              id="url_input"
+              id="url-input"
               type="text"
               name="url"
               placeholder="https://www.freecodecamp.org/"
@@ -45,15 +45,26 @@
             <label for="short-url">URL:</label>
             <input id="short-url" type="text" name="url" />
             <button id="execCopy">Copy URL</button>
+            <p>
+              Now you can use this shorten link,also you always can see all your
+              shortens link and statistics.
+            </p>
           </fieldset>
-          <button id="see-all">See all my shortens</button>
+          <div id="alert2" class="alert" style="display: none">
+            <span class="closebtn">&times;</span>
+            <div></div>
+          </div>
+          <button id="see-all" class="control-buttons">
+            See all my shortens
+          </button>
         </section>
         <section id="url-statistic" style="display: none">
           <fieldset id="statistic"></fieldset>
+          <button id="to-main" class="control-buttons">To main page</button>
         </section>
       </main>
       <footer>
-        <p>By <a href="https://www.freecodecamp.org/">freeCodeCamp</a></p>
+        <p>By <a href="https://github.com/DimaTomilin">Dima Tomilin</a></p>
       </footer>
     </div>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

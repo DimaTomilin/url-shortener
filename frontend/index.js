@@ -47,25 +47,59 @@ function showingAlert(object, status, message) {
   object.style.opacity = '1';
 }
 
+function showingAlert2(message) {
+  const alert2 = document.getElementById('alert2');
+  alert2.querySelector('div').innerHTML = `<strong>Error!<strong> ${message}`;
+  alert2.style.display = 'block';
+  alert2.style.opacity = '1';
+}
+
 localStorage.setItem('username', '');
 
 document.getElementById('post-button').addEventListener('click', createShorten);
 
 async function createShorten() {
-  const longURL = document.getElementById('url_input').value;
-  const response = await axios.put(
-    `http://localhost:3000/url/create`,
-    { url: longURL },
-    {
-      headers: {
-        username: localStorage.getItem('username'),
-      },
+  try {
+    const longURL = document.getElementById('url-input').value;
+    const response = await axios.put(
+      `http://localhost:3000/url/create`,
+      { url: longURL },
+      {
+        headers: {
+          username: localStorage.getItem('username'),
+        },
+      }
+    );
+    const shortenURL = response.data.newURL;
+    document.getElementById(
+      'short-url'
+    ).value = `http://localhost:3000/${shortenURL}`;
+  } catch {
+    if (localStorage.getItem('username') === '') {
+      showingAlert2('Please make sing in.');
+    } else {
+      showingAlert2('Server error please check all your shortens');
     }
-  );
-  const shortenURL = response.data.newURL;
-  document.getElementById(
-    'short-url'
-  ).value = `http://localhost:3000/${shortenURL}`;
+  }
+}
+
+document.getElementById('to-main').addEventListener('click', () => {
+  document.getElementById('url-shortener').style.display = 'block';
+  document.getElementById('url-input').value = '';
+  document.getElementById('short-url').value = '';
+  document.getElementById('url-statistic').style.display = 'none';
+});
+
+const closeButtons = document.getElementsByClassName('closebtn');
+
+for (const button of closeButtons) {
+  button.onclick = function () {
+    const div = this.parentElement;
+    div.style.opacity = '0';
+    setTimeout(function () {
+      div.style.display = 'none';
+    }, 600);
+  };
 }
 
 document.getElementById('execCopy').addEventListener('click', copyFunction);
@@ -117,6 +151,7 @@ async function allMyShortens() {
 }
 
 function generateList(object) {
+  document.getElementById('statistic').innerHTML = '';
   for (const url in object) {
     const shortPart = createElement(
       'div',
