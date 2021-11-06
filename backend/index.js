@@ -26,7 +26,7 @@ server.use('/url', urlRouter);
 server.get('/:url', (req, res) => {
   const url = req.params.url;
   const longURL = findFile(url);
-  res.json(longURL);
+  res.redirect(longURL);
   res.end();
 });
 

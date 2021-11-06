@@ -81,10 +81,11 @@ function creatingTime() {
 //Search file by short URL and return long URL of this file
 function findFile(url) {
   const allUsers = fs.readdirSync('./backend/users');
-  const path = `./backend/users/${user}/${url}.json`;
   for (const user of allUsers) {
-    if (fs.existsSync(path)) {
-      const file = JSON.parse(fs.readFileSync(path));
+    if (fs.existsSync(`./backend/users/${user}/${url}.json`)) {
+      const file = JSON.parse(
+        fs.readFileSync(`./backend/users/${user}/${url}.json`)
+      );
       updateCounter(url, user);
       return file.LongURL;
     }
